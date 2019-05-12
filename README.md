@@ -1,9 +1,30 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting Started
+
+1. Clone the repo :
+    
+      `git clone https://github.com/piyush-chovatiya/holiday-app.git
+     `
+2. In bash/terminal/command line, `cd holiday-app` into project directory.
+3. Run `npm install` to install required files and dependencies.
+4. Launch the `development environment` with :
+
+    `
+    npm start
+    `
+
+Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
+When you’re ready to deploy to production, create a minified bundle with `npm run build`.
+
+<p align='center'>
+<img src='https://cdn.rawgit.com/facebook/create-react-app/27b42ac/screencast.svg' width='600' alt='npm start'>
+</p>
+
+
 ## Available Scripts
 
 In the project directory, you can run:
-
 ### `npm start`
 
 Runs the app in the development mode.<br>
