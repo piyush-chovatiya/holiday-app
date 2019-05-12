@@ -4,7 +4,7 @@ import HolidayTable from './HolidayTable';
 class HolidayLists extends Component {
   
   render() {
-    console.log(this.props.holidaysData);
+    //console.log(this.props.holidaysData);
     const holidaysDataItems = this.props.holidaysData.map((item, index) =>
         <HolidayTable data={item} key={index}/>
     );

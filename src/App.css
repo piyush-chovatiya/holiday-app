@@ -92,3 +92,11 @@ select#year {
     font-size: 16px;
     border-radius: 5px;
 }
+
+.emptyMsg {
+    text-align: center;
+    color: red;
+    border: 1px solid #989898;
+    padding: 10px;
+    margin: 20px auto;
+}
