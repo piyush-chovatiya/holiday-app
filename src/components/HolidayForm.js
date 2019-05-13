@@ -12,8 +12,9 @@ export default class HolidayForm extends Component {
             year: '',
             isLoading: false,
             isLoaded: false,
+            isDataEmpty: true,
             error: null,
-            rawHolidayList: [],
+            //rawHolidayList: [],
             filteredHolidayList: []
         };
 
@@ -71,7 +72,6 @@ export default class HolidayForm extends Component {
         const holidayUrl = 'https://calendarific.com/api/v2/holidays?api_key=eb00d5d925e8a5428754bcbdef9a88f327a921c4&country=' + this.state.country + '&year=' + this.state.year;
 
         console.log(holidayUrl);
-
         this.setState({
             isLoading: true
         });
@@ -79,24 +79,26 @@ export default class HolidayForm extends Component {
         fetch(holidayUrl)
           .then(response => response.json())
           .then(
-            data =>
-              this.setState({
-                rawHolidayList: data.response.holidays,
-                isLoading: false,
-                isLoaded: true
-              })
+            data => {
+                //function call to filter data
+                this.filterList(data.response.holidays)
+                let isEmpty = (data.response.length >= 0) ? false : true
+                this.setState({
+                    isLoading: false,
+                    isLoaded: true, 
+                    isDataEmpty: isEmpty
+                })
+            }
+              
           )
-          .catch(error =>  this.setState({error: true,isLoading: false,isLoaded: false}) );
-
-          //console.log(this.state.rawHolidayList);
+          .catch(error =>  this.setState({error: true, isDataEmpty: true, isLoading: false,isLoaded: false}) );
           //console.log(this.state.isLoading);
-            
-          //function call to filter data
-          this.filterList(this.state.rawHolidayList);
     }
 
     render() {
-        const loader = this.state.isLoading ? <img src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' alt='' /> : null;
+        const loader = this.state.isLoading ? <img className="loader" src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' alt='' /> : null;
+
+        const errorMsg = !this.state.isDataEmpty ? <p className="emptyMsg">There are no Holidays details available for current selection.</p> : null;
 
         let maxOffset = 149, startYear = 1900;
         let allYears = [];
@@ -130,9 +132,9 @@ export default class HolidayForm extends Component {
                         <input type="submit" value="Submit" className="btn"/>
                     </form>
                     {loader}
-                    {this.state.isLoaded && (this.state.filteredHolidayList !== undefined) && 
+                    {errorMsg}
+                    {this.state.isLoaded && !this.state.isLoading && (this.state.filteredHolidayList !== undefined) && 
                         <HolidayLists holidaysData={this.state.filteredHolidayList} />}
-                    {!this.state.isLoaded && <p className="emptyMsg">There are no Holidays details available for current selection.</p>}
                 </div>
                 
             </div>
