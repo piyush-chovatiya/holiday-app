@@ -17,6 +17,12 @@ body {
     padding: 30px;
 }
 
+#subTitle {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 .container {
     max-width: 990px;
     margin: 0 auto;

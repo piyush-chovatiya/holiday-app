@@ -9,9 +9,12 @@ class HolidayLists extends Component {
         <HolidayTable data={item} key={index}/>
     );
      return (
-          <table id='holidayTable'>
-              {holidaysDataItems}
-          </table>
+         <div>
+            <h2 id='subTitle'>{this.props.country} (Year {this.props.year}) Holiday List</h2>
+            <table id='holidayTable'>
+                {holidaysDataItems}
+            </table>
+          </div>
      )
   }
 }

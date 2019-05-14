@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import HolidayLists from './HolidayLists';
 
 import _ from 'lodash';
+import loader from '../assets/loader.gif';
+
+//const countryCodes = [{'us' : 'Unites States'}, {'gb' : 'Great Britain'}, {'fr' : 'France'}, {'de' : 'Germany'}, {'id' : 'Indonesia'}];
 
 export default class HolidayForm extends Component {
 
@@ -10,9 +13,11 @@ export default class HolidayForm extends Component {
         this.state = {
             country: '',
             year: '',
+            selcountry: '',
+            selyear: '',
             isLoading: false,
             isLoaded: false,
-            isDataEmpty: true,
+            isDataEmpty: null,
             error: null,
             //rawHolidayList: [],
             filteredHolidayList: []
@@ -22,23 +27,37 @@ export default class HolidayForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+
     handleChange(event) {
         const name = event.target.name;
+        const selName = 'sel' + event.target.name;
+
         this.setState({
-            [name]: event.target.value
+            [name]: event.target.value,
+            [selName]: event.target.options[event.target.selectedIndex].text
         });
-        //console.log([name] + ':' + event.target.value)
+
+        //console.log([selName] +' : '+ event.target.options[event.target.selectedIndex].text);
     }
     
+
     handleSubmit(event) {
         event.preventDefault();
         this.fetchHolidays();
     }
 
+    //function to filter the json data
     filterList(data) {
 
+        //console.log('data : ' + data);
+        let isEmpty = (data === undefined) ? true : false;
+        this.setState({
+            isDataEmpty: isEmpty
+        })
+        //console.log(this.state.isDataEmpty);
+
         let newArr = [];
-        _.each(data, function (dataitem) {
+        data.forEach((dataitem) => {
             let obj = {
                 name: dataitem.name,
                 description: dataitem.description,
@@ -52,6 +71,8 @@ export default class HolidayForm extends Component {
             obj.month = months[dataitem.date.datetime.month - 1];
             newArr.push(obj);
         });
+
+        //console.log(newArr);
 
         const result = _.chain(newArr)
             .groupBy("month")
@@ -68,6 +89,7 @@ export default class HolidayForm extends Component {
         console.log(this.state.filteredHolidayList);
     }
 
+    //api call on the click of submit button
     fetchHolidays() {
         const holidayUrl = 'https://calendarific.com/api/v2/holidays?api_key=eb00d5d925e8a5428754bcbdef9a88f327a921c4&country=' + this.state.country + '&year=' + this.state.year;
 
@@ -82,23 +104,19 @@ export default class HolidayForm extends Component {
             data => {
                 //function call to filter data
                 this.filterList(data.response.holidays)
-                let isEmpty = (data.response.length >= 0) ? false : true
                 this.setState({
                     isLoading: false,
-                    isLoaded: true, 
-                    isDataEmpty: isEmpty
+                    isLoaded: true
                 })
             }
-              
           )
-          .catch(error =>  this.setState({error: true, isDataEmpty: true, isLoading: false,isLoaded: false}) );
-          //console.log(this.state.isLoading);
+          .catch(error =>  this.setState({error: true, isDataEmpty: true, isLoading: false, isLoaded: false}) );
     }
 
     render() {
-        const loader = this.state.isLoading ? <img className="loader" src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' alt='' /> : null;
+        const loaderImg = this.state.isLoading ? <img className="loader" src={loader} alt='' /> : null;
 
-        const errorMsg = !this.state.isDataEmpty ? <p className="emptyMsg">There are no Holidays details available for current selection.</p> : null;
+        const errorMsg = this.state.isDataEmpty ? <p className="emptyMsg">There are no Holidays details available for current selection.</p> : null;
 
         let maxOffset = 149, startYear = 1900;
         let allYears = [];
@@ -131,10 +149,10 @@ export default class HolidayForm extends Component {
                         </label>
                         <input type="submit" value="Submit" className="btn"/>
                     </form>
-                    {loader}
+                    {loaderImg}
                     {errorMsg}
                     {this.state.isLoaded && !this.state.isLoading && (this.state.filteredHolidayList !== undefined) && 
-                        <HolidayLists holidaysData={this.state.filteredHolidayList} />}
+                        <HolidayLists holidaysData={this.state.filteredHolidayList} country={this.state.selcountry} year={this.state.selyear} />}
                 </div>
                 
             </div>
