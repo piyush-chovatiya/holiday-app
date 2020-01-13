@@ -133,6 +133,7 @@ export default class HolidayForm extends Component {
                             Select Your Country:
                             <select name="country" id="country" value={this.state.country} onChange={this.handleChange}>
                                 <option value="">---Select Country ---</option>
+                                <option value="in">India</option>
                                 <option value="us">Unites States</option>
                                 <option value="gb">Great Britain</option>
                                 <option value="fr">France</option>
