@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class HolidayLists extends Component {
 
     renderTableHeader() {
-        return <th colSpan="3">{this.props.data.month.toUpperCase()}</th>
+        return <th colSpan="4">{this.props.data.month.toUpperCase()}</th>
     }
    
     renderTableData() {
@@ -13,7 +13,7 @@ class HolidayLists extends Component {
                     <td>{v.date}</td>
                     <td>{v.type}</td>
                     <td>{v.name}</td>
-                    {/* <td>{v.description}</td> */}
+                    <td>{v.description}</td>
                 </tr>
             )
         })

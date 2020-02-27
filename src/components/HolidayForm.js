@@ -118,7 +118,7 @@ export default class HolidayForm extends Component {
 
         const errorMsg = this.state.isDataEmpty ? <p className="emptyMsg">There are no Holidays details available for current selection.</p> : null;
 
-        let maxOffset = 149, startYear = 1900;
+        let maxOffset = 99, startYear = 1950;
         let allYears = [];
         for(let x = 0; x <= maxOffset; x++) {
             allYears.push(startYear + x)
