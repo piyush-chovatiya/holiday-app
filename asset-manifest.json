@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/holiday-app/static/css/main.b17a1c58.chunk.css",
+    "main.js": "/holiday-app/static/js/main.ff898cae.chunk.js",
+    "main.js.map": "/holiday-app/static/js/main.ff898cae.chunk.js.map",
+    "runtime~main.js": "/holiday-app/static/js/runtime~main.e36f91ea.js",
+    "runtime~main.js.map": "/holiday-app/static/js/runtime~main.e36f91ea.js.map",
+    "static/js/2.dfd40556.chunk.js": "/holiday-app/static/js/2.dfd40556.chunk.js",
+    "static/js/2.dfd40556.chunk.js.map": "/holiday-app/static/js/2.dfd40556.chunk.js.map",
+    "index.html": "/holiday-app/index.html",
+    "precache-manifest.b0fbfa9d279e7a4d4a2d0c5f4d7ee5d1.js": "/holiday-app/precache-manifest.b0fbfa9d279e7a4d4a2d0c5f4d7ee5d1.js",
+    "service-worker.js": "/holiday-app/service-worker.js",
+    "static/css/main.b17a1c58.chunk.css.map": "/holiday-app/static/css/main.b17a1c58.chunk.css.map",
+    "static/media/loader.gif": "/holiday-app/static/media/loader.968d3a4a.gif"
+  }
+}
